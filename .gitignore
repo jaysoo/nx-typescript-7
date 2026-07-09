@@ -1,0 +1,8 @@
+node_modules
+dist
+out-tsc
+.nx
+tmp
+*.tsbuildinfo
+.DS_Store
+.ai

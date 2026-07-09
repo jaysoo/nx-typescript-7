@@ -1,0 +1,49 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
+    "production": [
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json"
+    ],
+    "sharedGlobals": []
+  },
+  "plugins": [
+    {
+      "plugin": "@nx/js/typescript",
+      "options": {
+        "compiler": "tsc",
+        "typecheck": {
+          "targetName": "typecheck"
+        },
+        "build": {
+          "targetName": "build",
+          "configName": "tsconfig.lib.json",
+          "buildDepsName": "build-deps",
+          "watchDepsName": "watch-deps"
+        }
+      }
+    },
+    {
+      "plugin": "@nx/js/typescript",
+      "options": {
+        "compiler": "tsc6",
+        "typecheck": {
+          "targetName": "typecheck-tsc6"
+        },
+        "build": {
+          "targetName": "build-tsc6",
+          "configName": "tsconfig.lib.json",
+          "buildDepsName": "build-deps-tsc6",
+          "watchDepsName": "watch-deps-tsc6"
+        }
+      }
+    }
+  ],
+  "neverConnectToCloud": true,
+  "analytics": true
+}

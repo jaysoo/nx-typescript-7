@@ -1,0 +1,24 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
+    "emitDeclarationOnly": false,
+    "forceConsistentCasingInFileNames": true,
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "references": [
+    {
+      "path": "../lib070/tsconfig.lib.json"
+    },
+    {
+      "path": "../lib062/tsconfig.lib.json"
+    }
+  ]
+}
