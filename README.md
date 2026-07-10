@@ -7,9 +7,7 @@ Based on [jaysoo/nx-ts7](https://github.com/jaysoo/nx-ts7). That repo splits pro
 | Target           | Compiler                    | Command                                            |
 | ---------------- | --------------------------- | -------------------------------------------------- |
 | `build`          | TypeScript 7 (native `tsc`) | `tsc --build tsconfig.lib.json`                    |
-| `typecheck`      | TypeScript 7 (native `tsc`) | `tsc --build tsconfig.json --emitDeclarationOnly`  |
 | `build-tsc6`     | TypeScript 6 (`tsc6`)       | `tsc6 --build tsconfig.lib.json`                   |
-| `typecheck-tsc6` | TypeScript 6 (`tsc6`)       | `tsc6 --build tsconfig.json --emitDeclarationOnly` |
 
 ## Setup
 
@@ -67,16 +65,12 @@ Both compiler variants share `tsconfig.lib.json` and emit to the same `dist/`, s
 rm -rf packages/*/dist
 ```
 
-Note: the inferred `typecheck` target depends on `build` (and `typecheck-tsc6` on `build-tsc6`), so the typecheck benchmark includes builds. Symmetric for both compilers.
-
 ## Run
 
 ```shell
 pnpm install
 npx nx run-many -t build           # TS7
 npx nx run-many -t build-tsc6      # TS6
-npx nx run-many -t typecheck       # TS7
-npx nx run-many -t typecheck-tsc6  # TS6
 ```
 
 ## Benchmark
@@ -88,7 +82,7 @@ hyperfine --warmup 1 --runs 3 \
   -n 'build-tsc6 (TS6 tsc6)' 'npx nx run-many -t build-tsc6 --skipNxCache'
 ```
 
-`--skipNxCache` so every run compiles; `--prepare` wipes `dist/` so no run is incremental and neither compiler reads the other's tsbuildinfo. (`typecheck` vs `typecheck-tsc6` benchmarks the same way if you care -- the ratio lands lower because each typecheck task also runs its build dependency.)
+`--skipNxCache` so every run compiles; `--prepare` wipes `dist/` so no run is incremental and neither compiler reads the other's tsbuildinfo.
 
 ## Results
 
