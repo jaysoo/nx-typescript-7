@@ -15,10 +15,7 @@
   ],
   "references": [
     {
-      "path": "../lib007/tsconfig.lib.json"
-    },
-    {
-      "path": "../lib005/tsconfig.lib.json"
+      "path": "../lib017/tsconfig.lib.json"
     }
   ]
 }

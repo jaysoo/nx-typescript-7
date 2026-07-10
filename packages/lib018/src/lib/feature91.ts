@@ -1,0 +1,575 @@
+export interface BaseP018F91 {
+  id: string;
+  createdAt: number;
+  updatedAt: number;
+  revision: number;
+  meta: Readonly<Record<string, string | number | boolean | null>>;
+}
+
+export interface RecP018F91x0 extends BaseP018F91 {
+  kind: 'k-P018F91-0';
+  label: string;
+  weight: number;
+  rank: 0;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x1 extends BaseP018F91 {
+  kind: 'k-P018F91-1';
+  label: string;
+  weight: number;
+  rank: 1;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x2 extends BaseP018F91 {
+  kind: 'k-P018F91-2';
+  label: string;
+  weight: number;
+  rank: 2;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x3 extends BaseP018F91 {
+  kind: 'k-P018F91-3';
+  label: string;
+  weight: number;
+  rank: 3;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x4 extends BaseP018F91 {
+  kind: 'k-P018F91-4';
+  label: string;
+  weight: number;
+  rank: 4;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x5 extends BaseP018F91 {
+  kind: 'k-P018F91-5';
+  label: string;
+  weight: number;
+  rank: 5;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x6 extends BaseP018F91 {
+  kind: 'k-P018F91-6';
+  label: string;
+  weight: number;
+  rank: 6;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x7 extends BaseP018F91 {
+  kind: 'k-P018F91-7';
+  label: string;
+  weight: number;
+  rank: 7;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x8 extends BaseP018F91 {
+  kind: 'k-P018F91-8';
+  label: string;
+  weight: number;
+  rank: 8;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x9 extends BaseP018F91 {
+  kind: 'k-P018F91-9';
+  label: string;
+  weight: number;
+  rank: 9;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x10 extends BaseP018F91 {
+  kind: 'k-P018F91-10';
+  label: string;
+  weight: number;
+  rank: 10;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x11 extends BaseP018F91 {
+  kind: 'k-P018F91-11';
+  label: string;
+  weight: number;
+  rank: 11;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x12 extends BaseP018F91 {
+  kind: 'k-P018F91-12';
+  label: string;
+  weight: number;
+  rank: 12;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x13 extends BaseP018F91 {
+  kind: 'k-P018F91-13';
+  label: string;
+  weight: number;
+  rank: 13;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x14 extends BaseP018F91 {
+  kind: 'k-P018F91-14';
+  label: string;
+  weight: number;
+  rank: 14;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x15 extends BaseP018F91 {
+  kind: 'k-P018F91-15';
+  label: string;
+  weight: number;
+  rank: 15;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x16 extends BaseP018F91 {
+  kind: 'k-P018F91-16';
+  label: string;
+  weight: number;
+  rank: 16;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x17 extends BaseP018F91 {
+  kind: 'k-P018F91-17';
+  label: string;
+  weight: number;
+  rank: 17;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x18 extends BaseP018F91 {
+  kind: 'k-P018F91-18';
+  label: string;
+  weight: number;
+  rank: 18;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x19 extends BaseP018F91 {
+  kind: 'k-P018F91-19';
+  label: string;
+  weight: number;
+  rank: 19;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x20 extends BaseP018F91 {
+  kind: 'k-P018F91-20';
+  label: string;
+  weight: number;
+  rank: 20;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x21 extends BaseP018F91 {
+  kind: 'k-P018F91-21';
+  label: string;
+  weight: number;
+  rank: 21;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x22 extends BaseP018F91 {
+  kind: 'k-P018F91-22';
+  label: string;
+  weight: number;
+  rank: 22;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x23 extends BaseP018F91 {
+  kind: 'k-P018F91-23';
+  label: string;
+  weight: number;
+  rank: 23;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x24 extends BaseP018F91 {
+  kind: 'k-P018F91-24';
+  label: string;
+  weight: number;
+  rank: 24;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x25 extends BaseP018F91 {
+  kind: 'k-P018F91-25';
+  label: string;
+  weight: number;
+  rank: 25;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x26 extends BaseP018F91 {
+  kind: 'k-P018F91-26';
+  label: string;
+  weight: number;
+  rank: 26;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x27 extends BaseP018F91 {
+  kind: 'k-P018F91-27';
+  label: string;
+  weight: number;
+  rank: 27;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x28 extends BaseP018F91 {
+  kind: 'k-P018F91-28';
+  label: string;
+  weight: number;
+  rank: 28;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x29 extends BaseP018F91 {
+  kind: 'k-P018F91-29';
+  label: string;
+  weight: number;
+  rank: 29;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x30 extends BaseP018F91 {
+  kind: 'k-P018F91-30';
+  label: string;
+  weight: number;
+  rank: 30;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x31 extends BaseP018F91 {
+  kind: 'k-P018F91-31';
+  label: string;
+  weight: number;
+  rank: 31;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x32 extends BaseP018F91 {
+  kind: 'k-P018F91-32';
+  label: string;
+  weight: number;
+  rank: 32;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x33 extends BaseP018F91 {
+  kind: 'k-P018F91-33';
+  label: string;
+  weight: number;
+  rank: 33;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x34 extends BaseP018F91 {
+  kind: 'k-P018F91-34';
+  label: string;
+  weight: number;
+  rank: 34;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x35 extends BaseP018F91 {
+  kind: 'k-P018F91-35';
+  label: string;
+  weight: number;
+  rank: 35;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x36 extends BaseP018F91 {
+  kind: 'k-P018F91-36';
+  label: string;
+  weight: number;
+  rank: 36;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x37 extends BaseP018F91 {
+  kind: 'k-P018F91-37';
+  label: string;
+  weight: number;
+  rank: 37;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x38 extends BaseP018F91 {
+  kind: 'k-P018F91-38';
+  label: string;
+  weight: number;
+  rank: 38;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x39 extends BaseP018F91 {
+  kind: 'k-P018F91-39';
+  label: string;
+  weight: number;
+  rank: 39;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x40 extends BaseP018F91 {
+  kind: 'k-P018F91-40';
+  label: string;
+  weight: number;
+  rank: 40;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x41 extends BaseP018F91 {
+  kind: 'k-P018F91-41';
+  label: string;
+  weight: number;
+  rank: 41;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x42 extends BaseP018F91 {
+  kind: 'k-P018F91-42';
+  label: string;
+  weight: number;
+  rank: 42;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x43 extends BaseP018F91 {
+  kind: 'k-P018F91-43';
+  label: string;
+  weight: number;
+  rank: 43;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x44 extends BaseP018F91 {
+  kind: 'k-P018F91-44';
+  label: string;
+  weight: number;
+  rank: 44;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x45 extends BaseP018F91 {
+  kind: 'k-P018F91-45';
+  label: string;
+  weight: number;
+  rank: 45;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x46 extends BaseP018F91 {
+  kind: 'k-P018F91-46';
+  label: string;
+  weight: number;
+  rank: 46;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export interface RecP018F91x47 extends BaseP018F91 {
+  kind: 'k-P018F91-47';
+  label: string;
+  weight: number;
+  rank: 47;
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+export type AnyP018F91 =
+  | RecP018F91x0
+  | RecP018F91x1
+  | RecP018F91x2
+  | RecP018F91x3
+  | RecP018F91x4
+  | RecP018F91x5
+  | RecP018F91x6
+  | RecP018F91x7
+  | RecP018F91x8
+  | RecP018F91x9
+  | RecP018F91x10
+  | RecP018F91x11
+  | RecP018F91x12
+  | RecP018F91x13
+  | RecP018F91x14
+  | RecP018F91x15
+  | RecP018F91x16
+  | RecP018F91x17
+  | RecP018F91x18
+  | RecP018F91x19
+  | RecP018F91x20
+  | RecP018F91x21
+  | RecP018F91x22
+  | RecP018F91x23
+  | RecP018F91x24
+  | RecP018F91x25
+  | RecP018F91x26
+  | RecP018F91x27
+  | RecP018F91x28
+  | RecP018F91x29
+  | RecP018F91x30
+  | RecP018F91x31
+  | RecP018F91x32
+  | RecP018F91x33
+  | RecP018F91x34
+  | RecP018F91x35
+  | RecP018F91x36
+  | RecP018F91x37
+  | RecP018F91x38
+  | RecP018F91x39
+  | RecP018F91x40
+  | RecP018F91x41
+  | RecP018F91x42
+  | RecP018F91x43
+  | RecP018F91x44
+  | RecP018F91x45
+  | RecP018F91x46
+  | RecP018F91x47;
+
+export type KindP018F91 = AnyP018F91['kind'];
+
+export type ByKindP018F91 = { [R in AnyP018F91 as R['kind']]: R };
+
+export type PatchP018F91<T> = { [K in keyof T]?: T[K] extends object ? PatchP018F91<T[K]> : T[K] };
+
+export type SummaryP018F91 = {
+  [K in KindP018F91]: { count: number; weight: number; ranks: number[] };
+};
+
+const kindsP018F91 = ['k-P018F91-0', 'k-P018F91-1', 'k-P018F91-2', 'k-P018F91-3', 'k-P018F91-4', 'k-P018F91-5', 'k-P018F91-6', 'k-P018F91-7', 'k-P018F91-8', 'k-P018F91-9', 'k-P018F91-10', 'k-P018F91-11', 'k-P018F91-12', 'k-P018F91-13', 'k-P018F91-14', 'k-P018F91-15', 'k-P018F91-16', 'k-P018F91-17', 'k-P018F91-18', 'k-P018F91-19', 'k-P018F91-20', 'k-P018F91-21', 'k-P018F91-22', 'k-P018F91-23', 'k-P018F91-24', 'k-P018F91-25', 'k-P018F91-26', 'k-P018F91-27', 'k-P018F91-28', 'k-P018F91-29', 'k-P018F91-30', 'k-P018F91-31', 'k-P018F91-32', 'k-P018F91-33', 'k-P018F91-34', 'k-P018F91-35', 'k-P018F91-36', 'k-P018F91-37', 'k-P018F91-38', 'k-P018F91-39', 'k-P018F91-40', 'k-P018F91-41', 'k-P018F91-42', 'k-P018F91-43', 'k-P018F91-44', 'k-P018F91-45', 'k-P018F91-46', 'k-P018F91-47'] as const;
+
+let seqP018F91 = 0;
+
+export function createP018F91<K extends KindP018F91>(kind: K, label: string, weight: number): ByKindP018F91[K] {
+  seqP018F91 += 1;
+  const rank = kindsP018F91.indexOf(kind);
+  const rec = {
+    id: `${kind}-${seqP018F91}`,
+    createdAt: seqP018F91,
+    updatedAt: seqP018F91,
+    revision: 1,
+    meta: { seq: seqP018F91, source: label },
+    kind,
+    label,
+    weight,
+    rank,
+    tags: [label, kind],
+    payload: { values: [weight, rank], flags: { fresh: true }, note: label },
+  };
+  return rec as unknown as ByKindP018F91[K];
+}
+
+export function batchP018F91(count: number): AnyP018F91[] {
+  const out: AnyP018F91[] = [];
+  for (let idx = 0; idx < count; idx++) {
+    out.push(createP018F91(kindsP018F91[idx % kindsP018F91.length], `item-${idx}`, idx * 0.5));
+  }
+  return out;
+}
+
+export function pickP018F91<T extends object, K extends keyof T>(obj: T, keys: readonly K[]): Pick<T, K> {
+  const out = {} as Pick<T, K>;
+  for (const key of keys) {
+    out[key] = obj[key];
+  }
+  return out;
+}
+
+export function groupByP018F91(records: readonly AnyP018F91[]): Partial<{ [K in KindP018F91]: ByKindP018F91[K][] }> {
+  const out: Partial<{ [K in KindP018F91]: ByKindP018F91[K][] }> = {};
+  for (const rec of records) {
+    const bucket = (out[rec.kind] ??= []);
+    (bucket as AnyP018F91[]).push(rec);
+  }
+  return out;
+}
+
+export function summarizeP018F91(records: readonly AnyP018F91[]): Partial<SummaryP018F91> {
+  const grouped = groupByP018F91(records);
+  const out: Partial<SummaryP018F91> = {};
+  for (const kind of kindsP018F91) {
+    const bucket = grouped[kind];
+    if (!bucket) continue;
+    out[kind] = {
+      count: bucket.length,
+      weight: bucket.reduce((sum, r) => sum + r.weight, 0),
+      ranks: bucket.map((r) => r.rank as number),
+    };
+  }
+  return out;
+}
+
+export function mergeP018F91<T extends BaseP018F91>(target: T, patch: PatchP018F91<T>): T {
+  return { ...target, ...patch, revision: target.revision + 1 };
+}
+
+export function totalWeightP018F91(records: readonly AnyP018F91[]): number {
+  const summary = summarizeP018F91(records);
+  let total = 0;
+  for (const kind of kindsP018F91) {
+    total += summary[kind]?.weight ?? 0;
+  }
+  return total;
+}

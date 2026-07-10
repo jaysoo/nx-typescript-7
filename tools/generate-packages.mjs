@@ -1,15 +1,28 @@
 /**
- * Generate 100 workspace packages (lib001..lib100) in 10 layers of 10.
- * Layer 0 has no workspace deps; each package in layer L depends on
- * 2 deterministic packages from layer L-1. Re-runnable (overwrites).
+ * Generate workspace packages with tunable compile weight.
+ *
+ *   node tools/generate-packages.mjs [--count 25] [--per-layer 5] [--files 30] [--kinds 12]
+ *
+ * count: number of packages, per-layer: layer width (each package in layer L
+ * depends on 2 deterministic packages from layer L-1), files: feature modules
+ * per package, kinds: discriminated-union width per module (checker weight).
+ * Re-runnable (wipes packages/).
  */
 import { mkdirSync, writeFileSync, rmSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const COUNT = 100;
-const PER_LAYER = 10;
+
+function arg(name, dflt) {
+  const idx = process.argv.indexOf(`--${name}`);
+  return idx === -1 ? dflt : Number(process.argv[idx + 1]);
+}
+
+const COUNT = arg('count', 25);
+const PER_LAYER = arg('per-layer', 5);
+const FILES = arg('files', 30);
+const KINDS = arg('kinds', 12);
 
 const pad = (i) => String(i).padStart(3, '0');
 const name = (i) => `lib${pad(i)}`;
@@ -23,24 +36,77 @@ function depsOf(i) {
   return [...new Set([a, b])];
 }
 
-function srcModels(i) {
-  const n = pad(i);
-  let out = `export interface Entity${n} {\n  id: string;\n  createdAt: number;\n  updatedAt: number;\n  revision: number;\n}\n\n`;
-  for (let k = 0; k < 10; k++) {
-    out += `export interface Record${n}x${k} extends Entity${n} {\n  kind: 'record-${n}-${k}';\n  label: string;\n  weight: number;\n  tags: readonly string[];\n  attrs: Readonly<Record<string, string | number | boolean>>;\n}\n\n`;
+// One self-contained feature module: discriminated union + mapped types +
+// generic ops + factory + a pipeline exercising inference.
+function featureModule(i, f) {
+  const t = `P${pad(i)}F${f}`;
+  const kinds = Array.from({ length: KINDS }, (_, k) => k);
+  let out = `export interface Base${t} {
+  id: string;
+  createdAt: number;
+  updatedAt: number;
+  revision: number;
+  meta: Readonly<Record<string, string | number | boolean | null>>;
+}
+
+`;
+  for (const k of kinds) {
+    out += `export interface Rec${t}x${k} extends Base${t} {
+  kind: 'k-${t}-${k}';
+  label: string;
+  weight: number;
+  rank: ${k};
+  tags: readonly string[];
+  payload: { values: number[]; flags: Record<string, boolean>; note?: string };
+}
+
+`;
   }
-  out += `export type AnyRecord${n} =\n${Array.from({ length: 10 }, (_, k) => `  | Record${n}x${k}`).join('\n')};\n\n`;
-  out += `export type RecordKind${n} = AnyRecord${n}['kind'];\n\n`;
-  out += `export type PartialDeep${n}<T> = {\n  [K in keyof T]?: T[K] extends object ? PartialDeep${n}<T[K]> : T[K];\n};\n\n`;
-  out += `export type ByKind${n} = {\n  [R in AnyRecord${n} as R['kind']]: R;\n};\n`;
+  out += `export type Any${t} =
+${kinds.map((k) => `  | Rec${t}x${k}`).join('\n')};
+
+export type Kind${t} = Any${t}['kind'];
+
+export type ByKind${t} = { [R in Any${t} as R['kind']]: R };
+
+export type Patch${t}<T> = { [K in keyof T]?: T[K] extends object ? Patch${t}<T[K]> : T[K] };
+
+export type Summary${t} = {
+  [K in Kind${t}]: { count: number; weight: number; ranks: number[] };
+};
+
+const kinds${t} = [${kinds.map((k) => `'k-${t}-${k}'`).join(', ')}] as const;
+
+let seq${t} = 0;
+
+export function create${t}<K extends Kind${t}>(kind: K, label: string, weight: number): ByKind${t}[K] {
+  seq${t} += 1;
+  const rank = kinds${t}.indexOf(kind);
+  const rec = {
+    id: \`\${kind}-\${seq${t}}\`,
+    createdAt: seq${t},
+    updatedAt: seq${t},
+    revision: 1,
+    meta: { seq: seq${t}, source: label },
+    kind,
+    label,
+    weight,
+    rank,
+    tags: [label, kind],
+    payload: { values: [weight, rank], flags: { fresh: true }, note: label },
+  };
+  return rec as unknown as ByKind${t}[K];
+}
+
+export function batch${t}(count: number): Any${t}[] {
+  const out: Any${t}[] = [];
+  for (let idx = 0; idx < count; idx++) {
+    out.push(create${t}(kinds${t}[idx % kinds${t}.length], \`item-\${idx}\`, idx * 0.5));
+  }
   return out;
 }
 
-function srcOps(i) {
-  const n = pad(i);
-  return `import type { AnyRecord${n}, ByKind${n}, Entity${n}, RecordKind${n} } from './models.js';
-
-export function pick${n}<T extends object, K extends keyof T>(obj: T, keys: readonly K[]): Pick<T, K> {
+export function pick${t}<T extends object, K extends keyof T>(obj: T, keys: readonly K[]): Pick<T, K> {
   const out = {} as Pick<T, K>;
   for (const key of keys) {
     out[key] = obj[key];
@@ -48,98 +114,70 @@ export function pick${n}<T extends object, K extends keyof T>(obj: T, keys: read
   return out;
 }
 
-export function groupByKind${n}(records: readonly AnyRecord${n}[]): Partial<{ [K in RecordKind${n}]: ByKind${n}[K][] }> {
-  const out: Partial<{ [K in RecordKind${n}]: ByKind${n}[K][] }> = {};
+export function groupBy${t}(records: readonly Any${t}[]): Partial<{ [K in Kind${t}]: ByKind${t}[K][] }> {
+  const out: Partial<{ [K in Kind${t}]: ByKind${t}[K][] }> = {};
   for (const rec of records) {
     const bucket = (out[rec.kind] ??= []);
-    (bucket as AnyRecord${n}[]).push(rec);
+    (bucket as Any${t}[]).push(rec);
   }
   return out;
 }
 
-export function totalWeight${n}(records: readonly AnyRecord${n}[]): number {
-  return records.reduce((sum, rec) => sum + rec.weight, 0);
-}
-
-export function touch${n}<T extends Entity${n}>(entity: T, now: number): T {
-  return { ...entity, updatedAt: now, revision: entity.revision + 1 };
-}
-
-export async function mapSeries${n}<T, R>(items: readonly T[], fn: (item: T, index: number) => Promise<R>): Promise<R[]> {
-  const out: R[] = [];
-  for (let index = 0; index < items.length; index++) {
-    out.push(await fn(items[index], index));
+export function summarize${t}(records: readonly Any${t}[]): Partial<Summary${t}> {
+  const grouped = groupBy${t}(records);
+  const out: Partial<Summary${t}> = {};
+  for (const kind of kinds${t}) {
+    const bucket = grouped[kind];
+    if (!bucket) continue;
+    out[kind] = {
+      count: bucket.length,
+      weight: bucket.reduce((sum, r) => sum + r.weight, 0),
+      ranks: bucket.map((r) => r.rank as number),
+    };
   }
   return out;
 }
 
-export function assertKind${n}<K extends RecordKind${n}>(rec: AnyRecord${n}, kind: K): asserts rec is ByKind${n}[K] {
-  if (rec.kind !== kind) {
-    throw new Error(\`expected \${kind}, got \${rec.kind}\`);
+export function merge${t}<T extends Base${t}>(target: T, patch: Patch${t}<T>): T {
+  return { ...target, ...patch, revision: target.revision + 1 };
+}
+
+export function totalWeight${t}(records: readonly Any${t}[]): number {
+  const summary = summarize${t}(records);
+  let total = 0;
+  for (const kind of kinds${t}) {
+    total += summary[kind]?.weight ?? 0;
   }
+  return total;
 }
 `;
+  return out;
 }
 
-function srcFactory(i) {
+function composeModule(i, deps) {
   const n = pad(i);
-  return `import type { AnyRecord${n}, RecordKind${n}, ByKind${n} } from './models.js';
-
-let seq${n} = 0;
-
-export function create${n}<K extends RecordKind${n}>(kind: K, label: string, weight: number): ByKind${n}[K] {
-  seq${n} += 1;
-  const rec = {
-    id: \`\${kind}-\${seq${n}}\`,
-    createdAt: seq${n},
-    updatedAt: seq${n},
-    revision: 1,
-    kind,
-    label,
-    weight,
-    tags: [label],
-    attrs: { seq: seq${n} },
-  };
-  return rec as unknown as ByKind${n}[K];
-}
-
-export function createBatch${n}(count: number): AnyRecord${n}[] {
-  const kinds = [${Array.from({ length: 10 }, (_, k) => `'record-${n}-${k}'`).join(', ')}] as const;
-  const out: AnyRecord${n}[] = [];
-  for (let idx = 0; idx < count; idx++) {
-    out.push(create${n}(kinds[idx % kinds.length], \`item-\${idx}\`, idx * 0.5));
-  }
-  return out;
-}
-`;
-}
-
-function srcCompose(i, deps) {
-  const n = pad(i);
-  if (deps.length === 0) {
-    return `import { createBatch${n} } from './factory.js';
-import { totalWeight${n} } from './ops.js';
-
-export function summary${n}(): { count: number; weight: number } {
-  const batch = createBatch${n}(25);
-  return { count: batch.length, weight: totalWeight${n}(batch) };
-}
-`;
-  }
-  const imports = deps
+  const localImports = Array.from(
+    { length: FILES },
+    (_, f) => `import { batchP${n}F${f}, totalWeightP${n}F${f} } from './feature${f}.js';`
+  ).join('\n');
+  const localCalls = Array.from(
+    { length: FILES },
+    (_, f) => `    totalWeightP${n}F${f}(batchP${n}F${f}(20)),`
+  ).join('\n');
+  const depImports = deps
     .map((d) => `import { summary${pad(d)} } from '@org/${name(d)}';`)
     .join('\n');
-  const calls = deps.map((d) => `summary${pad(d)}()`).join(', ');
-  return `${imports}
-import { createBatch${n} } from './factory.js';
-import { totalWeight${n} } from './ops.js';
+  const depCalls = deps.map((d) => `summary${pad(d)}()`).join(', ');
+  return `${depImports}${deps.length ? '\n' : ''}${localImports}
 
 export function summary${n}(): { count: number; weight: number } {
-  const upstream = [${calls}];
-  const batch = createBatch${n}(25);
+  const upstream: { count: number; weight: number }[] = [${depCalls}];
+  const weights = [
+${localCalls}
+  ];
   return {
-    count: batch.length + upstream.reduce((sum, s) => sum + s.count, 0),
-    weight: totalWeight${n}(batch) + upstream.reduce((sum, s) => sum + s.weight, 0),
+    count: weights.length + upstream.reduce((sum, s) => sum + s.count, 0),
+    weight: weights.reduce((sum, w) => sum + w, 0) + upstream.reduce((sum, s) => sum + s.weight, 0),
   };
 }
 `;
@@ -220,18 +258,14 @@ for (let i = 1; i <= COUNT; i++) {
     ) + '\n'
   );
 
-  writeFileSync(join(dir, 'src', 'lib', 'models.ts'), srcModels(i));
-  writeFileSync(join(dir, 'src', 'lib', 'ops.ts'), srcOps(i));
-  writeFileSync(join(dir, 'src', 'lib', 'factory.ts'), srcFactory(i));
-  writeFileSync(join(dir, 'src', 'lib', 'compose.ts'), srcCompose(i, deps));
-  writeFileSync(
-    join(dir, 'src', 'index.ts'),
-    `export * from './lib/models.js';
-export * from './lib/ops.js';
-export * from './lib/factory.js';
-export * from './lib/compose.js';
-`
-  );
+  const indexLines = [];
+  for (let f = 0; f < FILES; f++) {
+    writeFileSync(join(dir, 'src', 'lib', `feature${f}.ts`), featureModule(i, f));
+    indexLines.push(`export * from './lib/feature${f}.js';`);
+  }
+  writeFileSync(join(dir, 'src', 'lib', 'compose.ts'), composeModule(i, deps));
+  indexLines.push(`export * from './lib/compose.js';`);
+  writeFileSync(join(dir, 'src', 'index.ts'), indexLines.join('\n') + '\n');
   writeFileSync(join(dir, 'README.md'), `# @org/${pkg}\n`);
 }
 
@@ -251,4 +285,6 @@ writeFileSync(
   ) + '\n'
 );
 
-console.log(`generated ${readdirSync(join(root, 'packages')).length} packages`);
+console.log(
+  `generated ${readdirSync(join(root, 'packages')).length} packages (files=${FILES}, kinds=${KINDS}, per-layer=${PER_LAYER})`
+);
