@@ -27,7 +27,7 @@ TypeScript 7 ships a `tsc` binary but no JavaScript API, so tools (`@nx/js`, `ty
 - `typescript` alias stays on `@typescript/typescript6` so `require('typescript')` returns a compiler API. It provides the `tsc6` binary.
 - `@typescript/native` exists only to supply the TS7 `tsc` binary.
 
-After any install that changes TypeScript packages, verify the binary (npm hoisting can let `@typescript/old` steal `.bin/tsc`; a fresh `npm ci` always resolves it):
+This repo uses pnpm (`pnpm-workspace.yaml`, inter-package deps use `workspace:*`). pnpm doesn't hoist transitive binaries, so the npm-only hazard of `@typescript/old` stealing `.bin/tsc` doesn't apply -- but verify after swapping package managers anyway:
 
 ```shell
 ./node_modules/.bin/tsc --version   # Version 7.x
@@ -52,7 +52,7 @@ Note: the inferred `typecheck` target depends on `build` (and `typecheck-tsc6` o
 ## Run
 
 ```shell
-npm install
+pnpm install
 npx nx run-many -t build           # TS7
 npx nx run-many -t build-tsc6      # TS6
 npx nx run-many -t typecheck       # TS7

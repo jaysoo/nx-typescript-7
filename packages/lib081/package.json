@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "tslib": "^2.3.0",
-    "@org/lib078": "0.0.1",
-    "@org/lib074": "0.0.1"
+    "@org/lib078": "workspace:*",
+    "@org/lib074": "workspace:*"
   }
 }

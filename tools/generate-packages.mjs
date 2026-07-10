@@ -155,7 +155,7 @@ for (let i = 1; i <= COUNT; i++) {
 
   const dependencies = { tslib: '^2.3.0' };
   for (const d of deps) {
-    dependencies[`@org/${name(d)}`] = '0.0.1';
+    dependencies[`@org/${name(d)}`] = 'workspace:*';
   }
 
   writeFileSync(
