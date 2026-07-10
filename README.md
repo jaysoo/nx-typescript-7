@@ -2,7 +2,7 @@
 
 Benchmark TypeScript 7 (native) against TypeScript 6 in one Nx workspace.
 
-Based on [jaysoo/nx-ts7](https://github.com/jaysoo/nx-ts7). That repo splits projects between the two compilers with plugin `include`/`exclude` globs. This repo instead registers `@nx/js/typescript` twice over ALL packages, so every project gets both compiler variants as separate targets:
+The `@nx/js/typescript` plugin is registered twice over all packages, so every project gets both compiler variants as separate targets:
 
 | Target           | Compiler                    | Command                                            |
 | ---------------- | --------------------------- | -------------------------------------------------- |
